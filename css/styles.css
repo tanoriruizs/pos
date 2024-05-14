@@ -1,0 +1,52 @@
+.contenedor{
+    height: 60vh;
+    max-height: 60vh;
+    overflow: auto; /* Para que se muestre la barra de desplazamiento */
+    border: 1px solid black;
+}
+
+*{
+    font-family: sans-serif;
+}
+
+.logo{
+    text-align: center;
+}
+
+#tabla{
+    max-height: 50%;
+    width: 100%;
+    font-size: larger;
+
+}
+
+.venta{
+    font-size: larger;
+    width: calc(100% - 6px);
+
+}
+
+.cont1{
+    display: flex;
+    align-items: center;
+}
+
+.btn1{
+    height: 15vh;
+    width: 10dvw;
+    background-position: center;
+    background-size: cover; 
+    cursor: pointer; 
+    border: 2px solid black;
+}
+
+.total{
+    display: flex;
+    border: 2px solid black;
+    height: 5dvw;
+    width: 30%;
+    margin-left: auto;
+    font-size: larger;
+    align-items: center;
+    justify-content: center;
+}
