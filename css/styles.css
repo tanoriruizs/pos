@@ -20,6 +20,7 @@
 }
 
 .venta {
+    margin-bottom: 20px;
     font-size: larger;
     width: calc(100% - 6px);
 }
@@ -49,11 +50,13 @@
     justify-content: center;
 }
 
+
+
 .modal {
     display: none; 
     position: fixed; 
     z-index: 1; 
-    padding-top: 100px; 
+    padding-top: 300px; 
     left: 0;
     top: 0;
     width: 100%; 
@@ -64,11 +67,12 @@
 }
 
 .modal-content {
+    text-align: center;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 25%;
 }
 
 .close {
@@ -83,4 +87,8 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+#tbody1{
+    text-align: center;
 }

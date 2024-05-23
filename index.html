@@ -27,19 +27,22 @@
     </div>
     <div>
         <br>
-        <input type="text" id="codigo" class="venta" onkeydown="buscarProductos(event)" autofocus>
+        <input type="text" id="codigo" class="venta" onkeydown="buscarProductos(event)" placeholder="Ingrese código del producto" autofocus>
         <div class="cont1">
             <input type="button" value="" class="btn1" style="background-image: url(./img/beer.svg);" onclick="agregarProducto('P001')">
             <input type="button" value="" class="btn1" style="background-image: url(./img/coffe.svg);" onclick="agregarProducto('P002')">
             <input type="button" value="" class="btn1" style="background-image: url(./img/drink.svg);" onclick="agregarProducto('P003')">
             <input type="button" value="" class="btn1" style="background-image: url(./img/hamburger.svg);" onclick="agregarProducto('P004')">
             <input type="button" value="" class="btn1" style="background-image: url(./img/cookie.svg);" onclick="agregarProducto('P005')">
+            <div class="container-btn">
+                <button class="btn-cerrar-venta" onclick="cerrarVenta()">Cerrar Venta</button>
+            </div>
             <div class="total">
                 <h1 id="total">$0.00</h1>
             </div>
         </div>
     </div>
-    <button onclick="cerrarVenta()">Cerrar Venta</button>
+
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarModal()">&times;</span>
@@ -47,10 +50,9 @@
             <label for="monto-recibido">Pago con:</label>
             <input type="text" id="monto-recibido" oninput="calcularCambio()">
             <h3>Su cambio es: <span id="cambio">$0.00</span></h3>
-            <button onclick="finalizarVenta()">Cobrar Venta</button>
+            <button class="btn-cobrar" onclick="finalizarVenta()">Cobrar Venta</button>
         </div>
     </div>
     <script src="./js/funciones.js"></script>
-    <script src="./js/productos.js"></script>
 </body>
 </html>
