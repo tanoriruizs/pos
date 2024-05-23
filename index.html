@@ -11,32 +11,45 @@
         <h1>Don Carero</h1>
         <h2>No es bueno pero es barato</h2>
     </div>
-        <div class="contenedor">
-            <table id="tabla">
+    <div class="contenedor">
+        <table id="tabla">
+            <thead>
                 <tr>
                     <th>Cantidad</th>
                     <th>Productos</th>
                     <th>Precios</th>
                     <th>Total</th>
                 </tr>
-                <tbody id="tbody1" style="border: none;">
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <br>
-            <input type="text" id="codigo" class="venta" onkeydown="buscarProductos(event)" autofocus>
-            <div class="cont1">
-                <input type="button" value="" class="btn1" style="background-image: url(./img/beer.svg);">
-                <input type="button" value="" class="btn1" style="background-image: url(./img/coffe.svg);">
-                <input type="button" value="" class="btn1" style="background-image: url(./img/drink.svg);">
-                <input type="button" value="" class="btn1" style="background-image: url(./img/hamburger.svg);">
-                <input type="button" value="" class="btn1" style="background-image: url(./img/cookie.svg);">
-                <div class="total">
-                    <h1 id="total">$0.00</h1>
-                </div>
+            </thead>
+            <tbody id="tbody1" style="border: none;">
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <br>
+        <input type="text" id="codigo" class="venta" onkeydown="buscarProductos(event)" autofocus>
+        <div class="cont1">
+            <input type="button" value="" class="btn1" style="background-image: url(./img/beer.svg);" onclick="agregarProducto('P001')">
+            <input type="button" value="" class="btn1" style="background-image: url(./img/coffe.svg);" onclick="agregarProducto('P002')">
+            <input type="button" value="" class="btn1" style="background-image: url(./img/drink.svg);" onclick="agregarProducto('P003')">
+            <input type="button" value="" class="btn1" style="background-image: url(./img/hamburger.svg);" onclick="agregarProducto('P004')">
+            <input type="button" value="" class="btn1" style="background-image: url(./img/cookie.svg);" onclick="agregarProducto('P005')">
+            <div class="total">
+                <h1 id="total">$0.00</h1>
             </div>
         </div>
+    </div>
+    <button onclick="cerrarVenta()">Cerrar Venta</button>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2>Total: <span id="modal-total"></span></h2>
+            <label for="monto-recibido">Pago con:</label>
+            <input type="text" id="monto-recibido" oninput="calcularCambio()">
+            <h3>Su cambio es: <span id="cambio">$0.00</span></h3>
+            <button onclick="finalizarVenta()">Cobrar Venta</button>
+        </div>
+    </div>
     <script src="./js/funciones.js"></script>
     <script src="./js/productos.js"></script>
 </body>
