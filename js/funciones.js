@@ -1,77 +1,80 @@
 var total = 0;
-var alerta;
 
-const productos = [
-    ["P001", "Cerveza", 10.99],
-    ["P002", "Café", 15.49],
-    ["P003", "Soda", 7.99],
-    ["P004", "Hamburguesa", 12.50],
-    ["P005", "Galleta", 22.30],
-    ["P006", "Melón", 18.00],
-    ["P007", "Sandía", 9.75],
-    ["P008", "Piña", 25.99],
-    ["P009", "Mango", 30.00],
-    ["P010", "Fresas", 5.49]
-];
-
-function buscarProductos(event) {
+async function buscarProductos(event) {
     if (event.key === 'Enter') {
         var codigo = document.getElementById('codigo').value;
-        agregarProducto(codigo);
+        await buscarProducto(codigo);
         document.getElementById('codigo').value = '';
     }
 }
 
-function agregarProducto(codigo) {
+async function buscarProducto(codigo) {
+    const url = 'http://localhost/apis/productos.php?codigo=' + codigo;
+    await fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la petición');
+            }
+            return response.json();
+        })
+        .then(data => {
+            agregarProducto(codigo, data.nombre_producto, data.precio);
+        })
+        .catch(error => {
+            alert('Error 100: ' + error);
+        });
+}
+
+function agregarProducto(codigo, nombre, precio) {
     var control = false;
     var tabla = document.getElementById('tbody1');
     var filas = tabla.getElementsByTagName('tr');
+
     for (var i = 0; i < filas.length; i++) {
-        if (filas[i].cells[1].textContent === codigo) {
-            incrementarCantidad(filas[i]);
+        if (filas[i].cells[1].textContent === nombre) {
             control = true;
+            incrementarCantidad(filas[i], parseFloat(precio));
             break;
         }
     }
+
     if (!control) {
-        for (var i = 0; i < productos.length; i++) {
-            if (productos[i][0] == codigo) {
-                var fila = tabla.insertRow();
-                fila.tabIndex = 0;
-                fila.addEventListener('keydown', function(event) {
-                    if (event.key === 'Tab') {
-                        event.preventDefault();
-                        incrementarCantidad(this);
-                    }
-                });
-                var celda0 = fila.insertCell(0);
-                celda0.innerHTML = "1";
-                var celda1 = fila.insertCell(1);
-                celda1.innerHTML = productos[i][1];
-                var celda2 = fila.insertCell(2);
-                celda2.innerHTML = productos[i][2];
-                var celda3 = fila.insertCell(3);
-                celda3.innerHTML = productos[i][2];
-                total += parseFloat(productos[i][2]);
-                document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-                control = true;
-                break;
+        var fila = tabla.insertRow();
+        fila.tabIndex = 0;
+        fila.addEventListener('keydown', function(event) {
+            if (event.key === 'Tab') {
+                event.preventDefault();
+                incrementarCantidad(fila, parseFloat(precio));
             }
-        }
-    }
-    if (!control) {
-        alert('Producto no encontrado');
+        });
+
+        var celda0 = fila.insertCell(0);
+        celda0.innerHTML = "1";
+
+        var celda1 = fila.insertCell(1);
+        celda1.innerHTML = nombre;
+
+        var celda2 = fila.insertCell(2);
+        celda2.innerHTML = precio;
+
+        var celda3 = fila.insertCell(3);
+        var cantidad = 1;
+        celda3.innerHTML = (precio * cantidad).toFixed(2);
+
+        total += parseFloat(precio);
+        document.getElementById('total').textContent = `$${total.toFixed(2)}`;
     }
 }
 
-function incrementarCantidad(fila) {
+function incrementarCantidad(fila, precio) {
     var cantidadCelda = fila.cells[0];
     var totalCelda = fila.cells[3];
-    var precio = parseFloat(fila.cells[2].textContent);
     var cantidad = parseInt(cantidadCelda.textContent) + 1;
+
     cantidadCelda.textContent = cantidad;
     var nuevoTotal = precio * cantidad;
     totalCelda.textContent = nuevoTotal.toFixed(2);
+
     total += precio;
     document.getElementById('total').textContent = `$${total.toFixed(2)}`;
 }
